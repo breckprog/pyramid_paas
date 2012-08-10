@@ -24,7 +24,7 @@ class DotCloudDebugPanel(DebugPanel):
     def content(self):
         env = [(k, v) for k, v in vars(self.request.dotcloud_env).iteritems()]
         return self.render(
-            'pyramid_dotcloud:dotcloud.dbtmako',
+            'pyramid_paas:dotcloud.dbtmako',
             {'env': sorted(env, key=itemgetter(0))},
             self.request
             )
