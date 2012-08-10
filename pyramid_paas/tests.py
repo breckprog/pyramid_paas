@@ -199,6 +199,12 @@ class TestPaaSEnv(unittest.TestCase):
         r = de.get_postgresql_url()
         assert r == url
 
+        url = "pgsql://foo/bar"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_SQL_URL":url})
+        r = de.get_postgresql_url()
+        saurl = "postgres://foo/bar"
+        assert r == saurl
+
         url = "foo"
         de = DotCloudEnv(env={"BAD_DATA_SQL_URL":url})
         r = de.get_postgresql_url()
