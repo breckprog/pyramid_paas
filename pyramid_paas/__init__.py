@@ -13,7 +13,7 @@ class IPaaSEnv(Interface):
     pass
 
 class DotCloudEnv(object):
-    """DotCloud environment for Pyramid"""
+    """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
     def __init__(self, path=DOTCLOUD_FILE_PATH):
         if os.path.isfile(path):
             with open(path) as f:
