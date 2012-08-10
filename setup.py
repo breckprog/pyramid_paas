@@ -6,7 +6,18 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'zope.interface']
+install_requires = ['pyramid', 'pyramid.debugtoolbar', 'zope.interface']
+tests_require = ['mock']
+
+docs_extras = [
+    'Sphinx',
+    'docutils',
+    ]
+
+testing_extras = tests_require + [
+    'nose',
+    'coverage',
+    ]
 
 setup(name='pyramid_dotcloud',
       version='0.1',
@@ -26,7 +37,10 @@ setup(name='pyramid_dotcloud',
       include_package_data=True,
       zip_safe=False,
       test_suite='pyramid_dotcloud',
-      install_requires=requires,
-      test_requires=['mock', 'nose', 'coverage'],
-      paster_plugins=['pyramid'],
+      install_requires=install_requires,
+      tests_require=tests_require,
+      extras_require = {
+          'testing':testing_extras,
+          'docs':docs_extras,
+          },
       )
