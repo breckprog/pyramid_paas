@@ -57,6 +57,8 @@ class HerokuEnv(object):
             self.env = os.environ
         else:
             self.env = env
+        for item in self.env:
+            setattr(self, item, self.env[item])
 
     def get_mysql_url(self):
         # ClearDB and Xeround options for MySQL
