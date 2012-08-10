@@ -102,3 +102,15 @@ class TestPaaSEnv(unittest.TestCase):
         he = HerokuEnv({"FOO":url})
         r = he.get_mongodb_url()
         assert r == None
+
+    def test_heroku_postgresql(self):
+        from pyramid_paas import HerokuEnv
+
+        url = "foo"
+        he = HerokuEnv({"DATABASE_URL":url})
+        r = he.get_postgresql_url()
+        assert r == url
+
+        he = HerokuEnv({"FOO":url})
+        r = he.get_postgresql_url()
+        assert r == None
