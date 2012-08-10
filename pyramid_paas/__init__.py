@@ -12,6 +12,9 @@ DOTCLOUD_FILE_PATH = '/home/dotcloud/environment.json'
 class IPaaSEnv(Interface):
     pass
 
+class NoEnv(object):
+    pass
+
 class DotCloudEnv(object):
     """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
     def __init__(self, path=DOTCLOUD_FILE_PATH, env=None):
@@ -126,6 +129,9 @@ def includeme(config):
     # Strider exports same vars as Heroku so can just re-use that impl.
     elif paas in (HEROKU, STRIDER):
         config.registry.registerUtility(HerokuEnv(), IPaaSEnv)
+    else:
+        config.registry.registerUtility(NoEnv(), IPaaSEnv)
+
 
     config.add_directive('get_paas_env', get_paas_env)
     config.set_request_property(
