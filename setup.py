@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-install_requires = ['pyramid', 'pyramid.debugtoolbar', 'zope.interface']
+install_requires = ['pyramid', 'pyramid_debugtoolbar', 'zope.interface']
 tests_require = ['mock']
 
 docs_extras = [
