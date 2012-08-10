@@ -14,26 +14,38 @@ class IPaaSEnv(Interface):
 
 class DotCloudEnv(object):
     """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
-    def __init__(self, path=DOTCLOUD_FILE_PATH):
+    def __init__(self, path=DOTCLOUD_FILE_PATH, env=None):
         if os.path.isfile(path):
             with open(path) as f:
                 env = json.load(f)
                 for item in env:
                     setattr(self, item, env[item])
+                self.env = env
 
-    def get_mysql_url(config):
-        pass
+        if env:
+            self.env = env
 
-    def get_postgresql_url(config):
-        pass
+    def lookup(self, key):
+        for k, val in self.env.iteritems():
+            if k.startswith("DOTCLOUD") and k.endswith(key):
+                return val
 
-    def get_mongodb_url(config):
-        pass
+    def get_mysql_url(self):
+        return self.lookup("MYSQL_URL");
 
-    def get_redis_url(config):
-        pass
+    def get_postgresql_url(self):
+        # underscore prevents us from confusing with a MYSQL_URL
+        return self.lookup("_SQL_URL");
 
-    def get_solr_url(config):
+    def get_mongodb_url(self):
+        return self.lookup("MONGODB_URL");
+
+    def get_redis_url(self):
+        return self.lookup("REDIS_URL");
+
+    def get_solr_url(self):
+        # XXX not sure how to implement this for DotCloud yet:
+        # http://docs.dotcloud.com/services/solr/
         pass
 
 

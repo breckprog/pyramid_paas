@@ -159,3 +159,65 @@ class TestPaaSEnv(unittest.TestCase):
         he = HerokuEnv({"FOO":url})
         r = he.get_solr_url()
         assert r == None
+
+    def test_dotcloud_mongodb(self):
+        from pyramid_paas import DotCloudEnv
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_MONGODB_URL":url})
+        r = de.get_mongodb_url()
+        assert r == url
+
+        url = "foo"
+        de = DotCloudEnv(env={"BAD_DATA_MONGODB_URL":url})
+        r = de.get_mongodb_url()
+        assert r == None
+
+    def test_dotcloud_mysql(self):
+        from pyramid_paas import DotCloudEnv
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_MYSQL_URL":url})
+        r = de.get_mysql_url()
+        assert r == url
+
+        url = "foo"
+        de = DotCloudEnv(env={"BAD_DATA_MYSQL_URL":url})
+        r = de.get_mysql_url()
+        assert r == None
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_SQL_URL":url})
+        r = de.get_mysql_url()
+        assert r == None
+
+    def test_dotcloud_postgresql(self):
+        from pyramid_paas import DotCloudEnv
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_SQL_URL":url})
+        r = de.get_postgresql_url()
+        assert r == url
+
+        url = "foo"
+        de = DotCloudEnv(env={"BAD_DATA_SQL_URL":url})
+        r = de.get_postgresql_url()
+        assert r == None
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_MYSQL_URL":url})
+        r = de.get_postgresql_url()
+        assert r == None
+
+    def test_dotcloud_redis(self):
+        from pyramid_paas import DotCloudEnv
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_REDIS_URL":url})
+        r = de.get_redis_url()
+        assert r == url
+
+        url = "foo"
+        de = DotCloudEnv(env={"DOTCLOUD_DATA_BLAH_URL":url})
+        r = de.get_redis_url()
+        assert r == None
