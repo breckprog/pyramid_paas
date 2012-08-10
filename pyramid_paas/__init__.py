@@ -13,11 +13,14 @@ class IPaaSEnv(Interface):
     pass
 
 class NoEnv(object):
-    pass
+    """ No PaaS found """
+    def __init__(self):
+        self.PAAS_NAME = "none"
 
 class DotCloudEnv(object):
     """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
     def __init__(self, path=DOTCLOUD_FILE_PATH, env=None):
+        self.PAAS_NAME = "dotcloud"
         if os.path.isfile(path):
             with open(path) as f:
                 env = json.load(f)
@@ -56,6 +59,7 @@ class HerokuEnv(object):
     """ Heroku environment for Pyramid. See https://addons.heroku.com """
 
     def __init__(self, env=None):
+        self.PAAS_NAME = "heroku"
         if not env:
             self.env = os.environ
         else:
