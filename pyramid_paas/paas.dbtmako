@@ -1,4 +1,4 @@
-<h1>Platform: ${paas}</h1>
+<h4>Platform: ${paas}</h4>
 <table>
     <thead>
         <tr>
