@@ -220,4 +220,21 @@ class TestPaaSEnv(unittest.TestCase):
         url = "foo"
         de = DotCloudEnv(env={"DOTCLOUD_DATA_BLAH_URL":url})
         r = de.get_redis_url()
+
+    def test_noenv(self):
+        from pyramid_paas import NoEnv
+
+        class FakeConfig(object):
+            def __init__(self, settings):
+                self.settings = settings
+
+        url = "foo"
+        ne = NoEnv(FakeConfig({"sqlalchemy.url":url}))
+        r = ne.get_postgresql_url()
+        assert r == url
+        r = ne.get_mysql_url()
+        assert r == url
+
+        ne = NoEnv(FakeConfig({"bad":url}))
+        r = ne.get_mysql_url()
         assert r == None

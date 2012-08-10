@@ -14,8 +14,15 @@ class IPaaSEnv(Interface):
 
 class NoEnv(object):
     """ No PaaS found """
-    def __init__(self):
+    def __init__(self, config):
         self.PAAS_NAME = "none"
+        self._config = config
+
+    def get_mysql_url(self):
+        return self._config.settings.get('sqlalchemy.url')
+
+    def get_postgresql_url(self):
+        return self._config.settings.get('sqlalchemy.url')
 
 class DotCloudEnv(object):
     """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
@@ -134,7 +141,7 @@ def includeme(config):
     elif paas in (HEROKU, STRIDER):
         config.registry.registerUtility(HerokuEnv(), IPaaSEnv)
     else:
-        config.registry.registerUtility(NoEnv(), IPaaSEnv)
+        config.registry.registerUtility(NoEnv(config), IPaaSEnv)
 
 
     config.add_directive('get_paas_env', get_paas_env)
