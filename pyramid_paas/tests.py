@@ -8,7 +8,7 @@ import mock
 class TestDotCloudEnv(unittest.TestCase):
 
     def test_dotcloudenv_init(self):
-        from pyramid_dotcloud import DotCloudEnv
+        from pyramid_paas import DotCloudEnv
 
         here = os.path.dirname(os.path.abspath(__file__))
         envfile = os.path.join(here, 'test.json')
@@ -16,8 +16,8 @@ class TestDotCloudEnv(unittest.TestCase):
         assert env.key == 'value'
 
     def test_get_dotcloud_env(self):
-        from pyramid_dotcloud import IDotCloudEnv
-        from pyramid_dotcloud import get_dotcloud_env
+        from pyramid_paas import IDotCloudEnv
+        from pyramid_paas import get_dotcloud_env
 
         config = mock.Mock()
         config.registry = mock.Mock()
@@ -31,8 +31,8 @@ class TestDotCloudEnv(unittest.TestCase):
         assert env != None
 
     def test_get_dotcloud_env_from_request(self):
-        from pyramid_dotcloud import IDotCloudEnv
-        from pyramid_dotcloud import get_dotcloud_env_from_request
+        from pyramid_paas import IDotCloudEnv
+        from pyramid_paas import get_dotcloud_env_from_request
 
         request = mock.Mock()
         request.registry = mock.Mock()
@@ -45,9 +45,9 @@ class TestDotCloudEnv(unittest.TestCase):
         assert env != None
 
     def test_includeme(self):
-        from pyramid_dotcloud import includeme
-        from pyramid_dotcloud import get_dotcloud_env
-        from pyramid_dotcloud import get_dotcloud_env_from_request
+        from pyramid_paas import includeme
+        from pyramid_paas import get_dotcloud_env
+        from pyramid_paas import get_dotcloud_env_from_request
 
         config = mock.Mock()
         add_directive = mock.Mock()

@@ -15,9 +15,9 @@ install_requires = [
     'PasteScript'
     ]
 
-setup(name='dotcloud_demo',
+setup(name='paas_demo',
       version='0.0',
-      description='A demo application for pyramid_dotcloud',
+      description='A demo application for pyramid_paas',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Intended Audience :: Developers",

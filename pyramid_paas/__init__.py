@@ -26,7 +26,7 @@ def get_dotcloud_env(config):
 
 def get_dotcloud_env_from_request(request):
     """Obtain a DotCloudEnv object previously registered via
-    ``config.include('pyramid_dotcloud')``
+    ``config.include('pyramid_paas')``
     """
     return request.registry.queryUtility(IDotCloudEnv)
 
