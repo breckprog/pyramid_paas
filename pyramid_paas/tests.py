@@ -114,3 +114,19 @@ class TestPaaSEnv(unittest.TestCase):
         he = HerokuEnv({"FOO":url})
         r = he.get_postgresql_url()
         assert r == None
+
+    def test_heroku_mysql(self):
+        from pyramid_paas import HerokuEnv
+
+        url = "foo"
+        he = HerokuEnv({"CLEARDB_DATABASE_URL":url})
+        r = he.get_mysql_url()
+        assert r == url
+
+        he = HerokuEnv({"XEROUND_DATABASE_INTERNAL_URL":url})
+        r = he.get_mysql_url()
+        assert r == url
+
+        he = HerokuEnv({"FOO":url})
+        r = he.get_mysql_url()
+        assert r == None
