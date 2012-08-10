@@ -130,3 +130,19 @@ class TestPaaSEnv(unittest.TestCase):
         he = HerokuEnv({"FOO":url})
         r = he.get_mysql_url()
         assert r == None
+
+    def test_heroku_redis(self):
+        from pyramid_paas import HerokuEnv
+
+        url = "foo"
+        he = HerokuEnv({"REDISTOGO_URL":url})
+        r = he.get_redis_url()
+        assert r == url
+
+        he = HerokuEnv({"OPENREDIS_URL":url})
+        r = he.get_redis_url()
+        assert r == url
+
+        he = HerokuEnv({"FOO":url})
+        r = he.get_redis_url()
+        assert r == None
