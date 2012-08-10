@@ -87,3 +87,18 @@ class TestPaaSEnv(unittest.TestCase):
         r = detect_paas("/foo/doesn'texist", {})
         assert r == None
 
+    def test_heroku_mongodb(self):
+        from pyramid_paas import HerokuEnv
+
+        url = "foo"
+        he = HerokuEnv({"MONGOLAB_URL":url})
+        r = he.get_mongodb_url()
+        assert r == url
+
+        he = HerokuEnv({"MONGOHQ_URL":url})
+        r = he.get_mongodb_url()
+        assert r == url
+
+        he = HerokuEnv({"FOO":url})
+        r = he.get_mongodb_url()
+        assert r == None
