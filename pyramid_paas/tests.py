@@ -146,3 +146,16 @@ class TestPaaSEnv(unittest.TestCase):
         he = HerokuEnv({"FOO":url})
         r = he.get_redis_url()
         assert r == None
+
+
+    def test_heroku_solr(self):
+        from pyramid_paas import HerokuEnv
+
+        url = "foo"
+        he = HerokuEnv({"WEBSOLR_URL":url})
+        r = he.get_solr_url()
+        assert r == url
+
+        he = HerokuEnv({"FOO":url})
+        r = he.get_solr_url()
+        assert r == None
