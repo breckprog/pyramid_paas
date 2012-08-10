@@ -22,8 +22,11 @@ class PaaSDebugPanel(DebugPanel):
         return _('PaaS')
 
     def content(self):
-        env = [(k, v) for k, v in vars(self.request.paas_env).iteritems()]
-        del env['env']
+        d = vars(self.request.paas_env)
+        if d.get('env'):
+            del d['env']
+
+        env = [(k, v) for k, v in d.iteritems()]
         return self.render(
             'pyramid_paas:paas.dbtmako',
             {'env': sorted(env, key=itemgetter(0))},
