@@ -25,8 +25,8 @@ class PaaSDebugPanel(DebugPanel):
         d = vars(self.request.paas_env)
         if d.get('env'):
             del d['env']
-        if d.get('_config'):
-            del d['_config']
+        if d.get('_settings'):
+            del d['_settings']
 
         paas_name = d['PAAS_NAME']
 
