@@ -3,9 +3,10 @@ import os
 import unittest
 
 import mock
+import tempfile
 
 
-class TestDotCloudEnv(unittest.TestCase):
+class TestPaaSEnv(unittest.TestCase):
 
     def test_dotcloudenv_init(self):
         from pyramid_paas import DotCloudEnv
@@ -15,9 +16,9 @@ class TestDotCloudEnv(unittest.TestCase):
         env = DotCloudEnv(envfile)
         assert env.key == 'value'
 
-    def test_get_dotcloud_env(self):
-        from pyramid_paas import IDotCloudEnv
-        from pyramid_paas import get_dotcloud_env
+    def test_get_paas_env(self):
+        from pyramid_paas import IPaaSEnv
+        from pyramid_paas import get_paas_env
 
         config = mock.Mock()
         config.registry = mock.Mock()
@@ -25,29 +26,29 @@ class TestDotCloudEnv(unittest.TestCase):
 
         config.registry.queryUtility = queryUtility
 
-        env = get_dotcloud_env(config)
-        queryUtility.assert_called_with(IDotCloudEnv)
+        env = get_paas_env(config)
+        queryUtility.assert_called_with(IPaaSEnv)
 
         assert env != None
 
-    def test_get_dotcloud_env_from_request(self):
-        from pyramid_paas import IDotCloudEnv
-        from pyramid_paas import get_dotcloud_env_from_request
+    def test_get_paas_env_from_request(self):
+        from pyramid_paas import IPaaSEnv
+        from pyramid_paas import get_paas_env_from_request
 
         request = mock.Mock()
         request.registry = mock.Mock()
         queryUtility = mock.Mock()
         request.registry.queryUtility = queryUtility
 
-        env = get_dotcloud_env_from_request(request)
-        queryUtility.assert_called_with(IDotCloudEnv)
+        env = get_paas_env_from_request(request)
+        queryUtility.assert_called_with(IPaaSEnv)
 
         assert env != None
 
     def test_includeme(self):
         from pyramid_paas import includeme
-        from pyramid_paas import get_dotcloud_env
-        from pyramid_paas import get_dotcloud_env_from_request
+        from pyramid_paas import get_paas_env
+        from pyramid_paas import get_paas_env_from_request
 
         config = mock.Mock()
         add_directive = mock.Mock()
@@ -62,7 +63,27 @@ class TestDotCloudEnv(unittest.TestCase):
         includeme(config)
 
         assert add_directive.call_args_list[0][0] == \
-            ('get_dotcloud_env', get_dotcloud_env)
+            ('get_paas_env', get_paas_env)
 
         assert set_request_property.call_args_list[0][0] == \
-            (get_dotcloud_env_from_request, 'dotcloud_env')
+            (get_paas_env_from_request, 'paas_env')
+
+    def test_detect_paas(self):
+        from pyramid_paas import detect_paas
+        from pyramid_paas import DOTCLOUD
+        from pyramid_paas import HEROKU
+        from pyramid_paas import STRIDER
+
+        with tempfile.NamedTemporaryFile() as f:
+            r = detect_paas(f.name)
+            assert r == DOTCLOUD
+
+        r = detect_paas(environ={"PORT":123})
+        assert r == HEROKU
+
+        r = detect_paas(environ={"PAAS_NAME":"STRIDER"})
+        assert r == STRIDER
+
+        r = detect_paas("/foo/doesn'texist", {})
+        assert r == None
+
