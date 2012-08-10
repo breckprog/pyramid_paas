@@ -5,7 +5,7 @@ from paste.script.util.logging_config import fileConfig
 
 
 here = os.path.dirname(os.path.abspath(__file__))
-conf = os.path.join(here, 'dotcloud.ini')
+conf = os.path.join(here, 'paas.ini')
 fileConfig(conf)
 
 application = get_app(conf, 'main')
