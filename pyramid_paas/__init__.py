@@ -50,7 +50,7 @@ class DotCloudEnv(object):
         # underscore prevents us from confusing with a MYSQL_URL
         url = self.lookup("_SQL_URL")
         if url:
-            url = url.replace('pgsql:', 'postgresql:')
+            url = url.replace('pgsql:', 'postgresql:') + "/template1"
         return url
 
     def get_mongodb_url(self):
