@@ -48,7 +48,7 @@ class DotCloudEnv(object):
 
     def get_postgresql_url(self):
         # underscore prevents us from confusing with a MYSQL_URL
-        return self.lookup("_SQL_URL");
+        return self.lookup("_SQL_URL").replace('pgsql:', 'postgres:')
 
     def get_mongodb_url(self):
         return self.lookup("MONGODB_URL");
