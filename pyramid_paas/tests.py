@@ -240,3 +240,32 @@ class TestPaaSEnv(unittest.TestCase):
         ne = NoEnv({"bad":url})
         r = ne.get_mysql_url()
         assert r == None
+
+    def test_noenv_mongodb(self):
+        from pyramid_paas import NoEnv
+
+        url = "foo"
+        ne = NoEnv({"mongodb.url":url})
+        r = ne.get_mongodb_url()
+        assert r == url
+        r = ne.get_mongodb_url()
+        assert r == url
+
+        ne = NoEnv({"bad":url})
+        r = ne.get_mongodb_url()
+        assert r == None
+
+    def test_noenv_redis(self):
+        from pyramid_paas import NoEnv
+
+        url = "foo"
+        ne = NoEnv({"redis.url":url})
+        r = ne.get_redis_url()
+        assert r == url
+        r = ne.get_redis_url()
+        assert r == url
+
+        ne = NoEnv({"bad":url})
+        r = ne.get_redis_url()
+        assert r == None
+

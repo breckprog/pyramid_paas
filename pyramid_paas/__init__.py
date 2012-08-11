@@ -24,6 +24,12 @@ class NoEnv(object):
     def get_postgresql_url(self):
         return self._settings.get('sqlalchemy.url')
 
+    def get_mongodb_url(self):
+        return self._settings.get('mongodb.url')
+
+    def get_redis_url(self):
+        return self._settings.get('redis.url')
+
 class DotCloudEnv(object):
     """DotCloud environment for Pyramid. See http://docs.dotcloud.com/firststeps/platform-overview/ """
     def __init__(self, path=DOTCLOUD_FILE_PATH, env=None):
