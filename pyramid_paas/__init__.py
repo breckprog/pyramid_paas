@@ -109,7 +109,7 @@ class HerokuEnv(object):
             return self.env['OPENREDIS_URL']
 
     def get_solr_url(self):
-        # Web Solr options for Solr
+        # Web Solr option for Solr
         if 'WEBSOLR_URL' in self.env:
             return self.env['WEBSOLR_URL']
 
