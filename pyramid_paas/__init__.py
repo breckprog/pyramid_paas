@@ -112,7 +112,7 @@ def get_paas_env(config):
 
 
 def get_paas_env_from_request(request):
-    """Obtain a DotCloudEnv object previously registered via
+    """Obtain a PaaSEnv object previously registered via
     ``config.include('pyramid_paas')``
     """
     return request.registry.queryUtility(IPaaSEnv)
