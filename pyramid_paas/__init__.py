@@ -54,10 +54,10 @@ class DotCloudEnv(object):
         return url
 
     def get_mongodb_url(self):
-        return self.lookup("MONGODB_URL");
+        return self.lookup("MONGODB_URL")
 
     def get_redis_url(self):
-        return self.lookup("REDIS_URL");
+        return self.lookup("REDIS_URL")
 
     def get_solr_url(self):
         # XXX not sure how to implement this for DotCloud yet:
