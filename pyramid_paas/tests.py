@@ -91,7 +91,7 @@ class TestPaaSEnv(unittest.TestCase):
         from pyramid_paas import HerokuEnv
 
         url = "foo"
-        he = HerokuEnv({"MONGOLAB_URL":url})
+        he = HerokuEnv({"MONGOLAB_URI":url})
         r = he.get_mongodb_url()
         assert r == url
 

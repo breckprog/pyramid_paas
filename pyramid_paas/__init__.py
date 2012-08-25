@@ -98,8 +98,8 @@ class HerokuEnv(object):
         # MongoHQ and MongoLab options for MongoDB
         if 'MONGOHQ_URL' in self.env:
             return self.env['MONGOHQ_URL']
-        if 'MONGOLAB_URL' in self.env:
-            return self.env['MONGOLAB_URL']
+        if 'MONGOLAB_URI' in self.env:
+            return self.env['MONGOLAB_URI']
 
     def get_redis_url(self):
         # Redis To Go and Open Redis options for Redis
